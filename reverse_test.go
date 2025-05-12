@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/stevepartridge/geocodio"
+	"github.com/strategycomplex/go-geocodio"
 )
 
 func TestReverseGeocodeLookup(t *testing.T) {

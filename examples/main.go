@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/stevepartridge/geocodio"
+	"github.com/strategycomplex/go-geocodio"
 )
 
 func main() {

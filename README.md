@@ -38,7 +38,7 @@ func main() {
 
 ```go
 import(
-  "github.com/stevepartridge/geocodio"
+  "github.com/strategycomplex/go-geocodio"
   "fmt"
 )
 
