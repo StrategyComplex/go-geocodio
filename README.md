@@ -1,3 +1,6 @@
+# Disclaimer
+Originally forked from Steve Partridge's original repo. As that hasn't been updated in near 5 years, it has been forked for this organization's use.
+
 # geocodio
 
 [![GoDoc](https://godoc.org/github.com/stevepartridge/geocodio?status.svg)](https://godoc.org/github.com/stevepartridge/geocodio)
@@ -12,7 +15,7 @@ Go client for [Geocodio](http://geocod.io) API v1
 
 ```go
 import(
-  "github.com/stevepartridge/geocodio"
+  "github.com/strategycomplex/go-geocodio"
   "fmt"
 )
 
