@@ -143,6 +143,11 @@ func (g *Geocodio) GeocodeAndReturnStateLegislativeDistricts(address string) (Ge
 	return g.GeocodeReturnFields(address, "stateleg")
 }
 
+// GeocodeAndReturnCongressAndStateDistricts will geocode and include Congressional District and State Legislative Districts in the fields response
+func (g *Geocodio) GeocodeAndReturnCongressAndStateDistricts(address string) (GeocodeResult, error) {
+	return g.GeocodeReturnFields(address, "cd,stateleg")
+}
+
 // TODO: School District (school)
 
 // GeocodeReturnFields will geocode and includes additional fields in response
@@ -164,6 +169,7 @@ func (g *Geocodio) GeocodeReturnFields(address string, fields ...string) (Geocod
 			"q":      address,
 			"fields": fieldsCommaSeparated,
 		}, &resp)
+
 	if err != nil {
 		return resp, err
 	}

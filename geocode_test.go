@@ -193,12 +193,12 @@ func TestGeocodeFullAddressReturningStateLegislativeDistricts(t *testing.T) {
 		t.Fail()
 	}
 
-	if result.Results[0].Fields.StateLegislativeDistricts.House.DistrictNumber != "47" {
+	if result.Results[0].Fields.StateLegislativeDistricts.House.DistrictNumber != "2" {
 		t.Error("State Legislative Districts house does not match", result.Results[0].Fields.StateLegislativeDistricts.House)
 		t.Fail()
 	}
 
-	if result.Results[0].Fields.StateLegislativeDistricts.Senate.DistrictNumber != "31" {
+	if result.Results[0].Fields.StateLegislativeDistricts.Senate.DistrictNumber != "40" {
 		t.Error("State Legislative Districts senate does not match", result.Results[0].Fields.StateLegislativeDistricts.Senate)
 		t.Fail()
 	}

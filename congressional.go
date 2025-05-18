@@ -14,7 +14,7 @@ type CongressionalDistrict struct {
 	DistrictNumber     int          `json:"district_number"`
 	CongressNumber     string       `json:"congress_number"`
 	CongressYears      string       `json:"congress_years"`
-	Proportion         int          `json:"congress_years"`
+	Proportion         int          `json:"proportion"`
 	CurrentLegislators []Legislator `json:"current_legislators"` // v1.2+
 }
 
@@ -126,6 +126,9 @@ type StateLegislativeDistricts struct {
 }
 
 type StateLegislativeDistrict struct {
-	Name           string `json:"name"`
-	DistrictNumber string `json:"district_number"`
+	Name                         string `json:"name"`
+	DistrictNumber               string `json:"district_number"`
+	OCDID                        string `json:"ocd_id"`
+	IsUpcomingStateLegisDistrict bool   `json:"is_upcoming_state_legislative_district"`
+	Proportion                   string `json:"proporition"`
 }

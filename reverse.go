@@ -3,6 +3,7 @@ package geocodio
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 /*
@@ -32,16 +33,65 @@ func (g *Geocodio) Reverse(latitude, longitude float64) (GeocodeResult, error) {
 	return resp, nil
 }
 
-// ReverseGeocode is deprecated and will be removed in 2+
-func (g *Geocodio) ReverseGeocode(latitude, longitude float64) (GeocodeResult, error) {
-	fmt.Printf(`
-  ReverseGeocode(%f, %f) is deprecated and will be removed in 2+
-  Use Reverse(%f, %f) 
-`,
-		latitude, longitude,
-		latitude, longitude,
-	)
-	return g.Reverse(latitude, longitude)
+// GeocodeAndReturnTimezone will geocode and include Timezone in the fields response
+func (g *Geocodio) ReverseAndReturnTimezone(latitude, longitude float64) (GeocodeResult, error) {
+	return g.ReverseReturnFields(latitude, longitude, "timezone")
+}
+
+// GeocodeAndReturnZip4 will geocode and include zip4 in the fields response
+func (g *Geocodio) ReverseAndReturnZip4(latitude, longitude float64) (GeocodeResult, error) {
+	return g.ReverseReturnFields(latitude, longitude, "zip4")
+}
+
+// GeocodeAndReturnCongressionalDistrict will geocode and include Congressional District in the fields response
+func (g *Geocodio) ReverseAndReturnCongressionalDistrict(latitude, longitude float64) (GeocodeResult, error) {
+	return g.ReverseReturnFields(latitude, longitude, "cd")
+}
+
+// GeocodeAndReturnStateLegislativeDistricts will geocode and include State Legislative Districts in the fields response
+func (g *Geocodio) ReverseAndReturnStateLegislativeDistricts(latitude, longitude float64) (GeocodeResult, error) {
+	return g.ReverseReturnFields(latitude, longitude, "stateleg")
+}
+
+// GeocodeAndReturnCongressAndStateDistricts will geocode and include Congressional District and State Legislative Districts in the fields response
+func (g *Geocodio) ReverseAndReturnCongressAndStateDistricts(latitude, longitude float64) (GeocodeResult, error) {
+	return g.ReverseReturnFields(latitude, longitude, "cd,stateleg")
+}
+
+// GeocodeReturnFields will geocode and includes additional fields in response
+/*
+ 	See: http://geocod.io/docs/#toc_22
+	Note:
+		Each field counts as an additional lookup each
+*/
+func (g *Geocodio) ReverseReturnFields(latitude, longitude float64, fields ...string) (GeocodeResult, error) {
+	// if there is an address here, they should probably think about moving
+	// regardless, we'll consider it an error
+	if latitude == 0.0 && longitude == 0.0 {
+		return GeocodeResult{}, ErrReverseGecodeMissingLatLng
+	}
+
+	latStr := strconv.FormatFloat(latitude, 'f', 9, 64)
+	lngStr := strconv.FormatFloat(longitude, 'f', 9, 64)
+
+	fieldsCommaSeparated := strings.Join(fields, ",")
+	resp := GeocodeResult{}
+
+	err := g.get("/reverse",
+		map[string]string{
+			"q":      latStr + "," + lngStr,
+			"fields": fieldsCommaSeparated,
+		}, &resp)
+
+	if err != nil {
+		return resp, err
+	}
+
+	if len(resp.Results) == 0 {
+		return resp, ErrNoResultsFound
+	}
+
+	return resp, nil
 }
 
 // ReverseBatch supports a batch lookup by lat/lng coordinate pairs

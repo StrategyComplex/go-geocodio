@@ -49,7 +49,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	result, err := gc.ReverseGeocode(38.9002898, -76.9990361)
+	result, err := gc.Reverse(38.9002898, -76.9990361)
 	if err != nil {
 		panic(err)
 	}
