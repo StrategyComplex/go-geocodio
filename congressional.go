@@ -130,5 +130,5 @@ type StateLegislativeDistrict struct {
 	DistrictNumber               string `json:"district_number"`
 	OCDID                        string `json:"ocd_id"`
 	IsUpcomingStateLegisDistrict bool   `json:"is_upcoming_state_legislative_district"`
-	Proportion                   string `json:"proporition"`
+	Proportion                   string `json:"proportion"`
 }
